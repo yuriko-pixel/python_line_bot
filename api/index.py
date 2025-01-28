@@ -48,20 +48,10 @@ def callback():
 @line_handler.add(MessageEvent, message=TextMessageContent)
 def handle_message(event):
     with ApiClient(configuration) as api_client:
-        #相手の送信した内容で条件分岐して回答を変数に代入
-        if event.message.text == 'グー':
-            msg = 'パー'
-        elif event.message.text == 'チョキ':
-            msg = 'グー'
-        elif event.message.text == 'パー':
-            msg = 'チョキ'
-        else:
-            msg = 'ごめんね。\nまだ他のメッセージには対応してないよ'
-
         line_bot_api = MessagingApi(api_client)
         line_bot_api.reply_message_with_http_info(
             ReplyMessageRequest(
                 reply_token=event.reply_token,
-                messages=[TextMessage(text=msg)]
+                messages=[TextMessage(text=event.message.text)]
             )
         )
