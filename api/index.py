@@ -29,6 +29,7 @@ def home():
 
 @app.route("/callback", methods=['POST'])
 def callback():
+    app.logger.info(os.environ["API_TEST"])
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
 
